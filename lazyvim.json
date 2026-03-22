@@ -2,7 +2,10 @@
   "extras": [
     "lazyvim.plugins.extras.ai.copilot",
     "lazyvim.plugins.extras.editor.inc-rename",
+    "lazyvim.plugins.extras.lang.go",
     "lazyvim.plugins.extras.lang.haskell",
+    "lazyvim.plugins.extras.lang.python",
+    "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.lang.json"
   ],
   "install_version": 8,

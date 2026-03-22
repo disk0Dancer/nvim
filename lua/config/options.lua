@@ -3,3 +3,6 @@
 -- Add any additional options here
 vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
+
+-- Use Astral ty as the Python language server.
+vim.g.lazyvim_python_lsp = "ty"
