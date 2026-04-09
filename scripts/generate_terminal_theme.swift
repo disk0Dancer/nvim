@@ -25,9 +25,28 @@ let colorKeyMap: [String: String] = [
   "Selection Color": "SelectionColor",
 ]
 
+// Terminal.app renders some TUI highlight states through ANSI yellow, so keep it
+// darker than the upstream TokyoNight accent to preserve white-text contrast.
+let terminalColorOverrides: [String: NSColor] = [
+  "ANSIYellowColor": color(hex: "#7F6337"),
+  "ANSIBrightYellowColor": color(hex: "#8F7040"),
+]
+
 func fail(_ message: String) -> Never {
   fputs("error: \(message)\n", stderr)
   exit(1)
+}
+
+func color(hex: String, alpha: CGFloat = 1.0) -> NSColor {
+  let cleaned = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+  guard cleaned.count == 6, let value = Int(cleaned, radix: 16) else {
+    fail("invalid hex color \(hex)")
+  }
+
+  let red = CGFloat((value >> 16) & 0xFF) / 255
+  let green = CGFloat((value >> 8) & 0xFF) / 255
+  let blue = CGFloat(value & 0xFF) / 255
+  return NSColor(srgbRed: red, green: green, blue: blue, alpha: alpha)
 }
 
 func loadPlist(at path: String) -> Plist {
@@ -81,6 +100,10 @@ for (sourceKey, targetKey) in colorKeyMap {
     continue
   }
   output[targetKey] = archivedColor(color(from: sourceColor))
+}
+
+for (targetKey, overrideColor) in terminalColorOverrides {
+  output[targetKey] = archivedColor(overrideColor)
 }
 
 output["name"] = "TokyoNight Storm"
