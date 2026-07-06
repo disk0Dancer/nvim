@@ -22,6 +22,7 @@ elif [ -x /usr/local/bin/brew ]; then
 fi
 brew update
 brew install neovim git ripgrep fd fzf lazygit lazydocker tmux uv go node python@3.12
+brew install --cask ghostty
 mkdir -p ~/.config
 if [ -d ~/.config/nvim ]; then
   mv ~/.config/nvim ~/.config/nvim.bak.$(date +%Y%m%d-%H%M%S)
@@ -37,6 +38,21 @@ After install:
 - open `nvim`
 - run `:Lazy sync`
 - run `:checkhealth`
+
+## Ghostty Terminal Setup
+
+Copy the included Ghostty config (Tokyo Night Storm theme, matching nvim):
+
+```bash
+mkdir -p ~/.config/ghostty
+cp terminal/ghostty/config ~/.config/ghostty/config
+```
+
+The config sets:
+- Theme: `Tokyo Night Storm` (built-in Ghostty theme)
+- Font: `JetBrainsMono Nerd Font` (install via `brew install --cask font-jetbrains-mono-nerd-font`)
+- Slight background transparency + blur
+- Useful split/tab keybindings
 
 ## tmux Colors and Clipboard
 
